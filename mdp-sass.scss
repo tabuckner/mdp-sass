@@ -1,0 +1,98 @@
+// Helper function to return @angular/material's color variables.
+@function get-mat-text-color($bg-color) {
+  @if (lightness($bg-color) >= 51) {
+    @return $dark-primary-text; // Light bg; return default text
+  } @else {
+    @return $light-primary-text; // If bg is to dark, just return white
+  }
+}
+
+// Given two hex values, will return the product (a * b) as RGB.
+@function multiply($hex-1, $hex-2) {
+  $new-red: multiply-rgb-value(red($hex-1), red($hex-2));
+  $new-green: multiply-rgb-value(green($hex-1), green($hex-2));
+  $new-blue: multiply-rgb-value(blue($hex-1), blue($hex-2));
+
+  $rgb: rgb($new-red, $new-green, $new-blue);
+  @return $rgb;
+}
+
+// Helper function to multiply two values and return the floored product.
+@function multiply-rgb-value($rgb-val-1, $rgb-val-2) {
+  $multiplied: $rgb-val-1 * $rgb-val-2;
+  $floored: floor($multiplied / 255);
+  @return $floored;
+}
+
+// Given a Base Accent Color, saturate amount, and ligthen amount, will return an accented base color. (Confusing, I know.)
+@function get-accented-base-color($base-a-color, $saturate-amount, $lighten-amount) {
+  $saturated: saturate($base-a-color, $saturate-amount);
+  $lightened: lighten($saturated, $lighten-amount);
+  @return $lightened;
+}
+
+// Given a base hex color, will return a sass-map of color variations that coincide with @angular/material's mat-color signature;
+@function get-mat-color-variations($base-color) {
+  $base: $base-color;
+  $base-light: #fff;
+  $base-dark: multiply($base, $base);
+  $base-triad: adjust_hue($base, 270);
+  $base-a: mix($base-dark, $base-triad, 85%);
+
+  $calc-map: (
+    50: mix($base-light, $base, 88%),
+    100: mix($base-light, $base, 70%),
+    200: mix($base-light, $base, 50%),
+    300: mix($base-light, $base, 30%),
+    400: mix($base-light, $base, 15%),
+    500: $base,
+    600: mix($base-dark, $base, 13%),
+    700: mix($base-dark, $base, 30%),
+    800: mix($base-dark, $base, 46%),
+    900: mix($base-dark, $base, 75%),
+    A100: get-accented-base-color($base-a, 80%, 48%),
+    A200: get-accented-base-color($base-a, 80%, 36%),
+    A400: get-accented-base-color($base-a, 100%, 31%),
+    A700: get-accented-base-color($base-a, 100%, 28%),
+  );
+  @return $calc-map;
+}
+
+// Given a base hex value, will return a map formatted to match @angular/material's mat-color signature with contrast values.
+@function get-mat-palette($base-color) {
+  $calc-map: get-mat-color-variations($base-color);
+
+  $tal-mat-color: (
+    50: map-get($calc-map, 50),
+    100: map-get($calc-map, 100),
+    200: map-get($calc-map, 200),
+    300: map-get($calc-map, 300),
+    400: map-get($calc-map, 400),
+    500: map-get($calc-map, 500),
+    600: map-get($calc-map, 600),
+    700: map-get($calc-map, 700),
+    800: map-get($calc-map, 800),
+    900: map-get($calc-map, 900),
+    A100: map-get($calc-map, A100),
+    A200: map-get($calc-map, A200),
+    A400: map-get($calc-map, A400),
+    A700: map-get($calc-map, A700),
+    contrast: (
+      50: get-mat-text-color(map-get($calc-map, 50)),
+      100: get-mat-text-color(map-get($calc-map, 100)),
+      200: get-mat-text-color(map-get($calc-map, 200)),
+      300: get-mat-text-color(map-get($calc-map, 300)),
+      400: get-mat-text-color(map-get($calc-map, 400)),
+      500: get-mat-text-color(map-get($calc-map, 500)),
+      600: get-mat-text-color(map-get($calc-map, 600)),
+      700: get-mat-text-color(map-get($calc-map, 700)),
+      800: get-mat-text-color(map-get($calc-map, 800)),
+      900: get-mat-text-color(map-get($calc-map, 900)),
+      A100: get-mat-text-color(map-get($calc-map, A100)),
+      A200: get-mat-text-color(map-get($calc-map, A200)),
+      A400: get-mat-text-color(map-get($calc-map, A400)),
+      A700: get-mat-text-color(map-get($calc-map, A700)),
+    )
+  );
+  @return $tal-mat-color;
+}
