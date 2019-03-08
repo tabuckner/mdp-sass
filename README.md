@@ -9,15 +9,15 @@ To use, simple install, include where necessary, and call the function:
 ```scss
 @import '~@angular/material/theming';
 @include mat-core();
-@import 'mdp-sass';
+@import 'node_modules/mdp-sass';
 
 $my-base-color: #0e5ab2;
 $my-accent-color: #b389d7;
 $my-warn-color: #f7377b;
 
-$my-mat-primary-palette: get-mat-palette($my-base-color);
-$my-mat-accent-palette: get-mat-palette($my-accent-color);
-$my-mat-warn-palette: get-mat-palette($my-warn-color);
+$my-mat-primary-palette: mat-palette(get-mat-palette($my-base-color));
+$my-mat-accent-palette: mat-palette(get-mat-palette($my-accent-color));
+$my-mat-warn-palette: mat-palette(get-mat-palette($my-warn-color));
 
 $my-app-theme: mat-light-theme($my-mat-primary-palette, $my-mat-accent-palette, $my-mat-warn-palette);
 ```
