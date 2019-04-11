@@ -1,5 +1,8 @@
 // Helper function to return @angular/material's color variables.
-@function get-mat-text-color($bg-color) {
+@function get-mat-text-color($bg-color, $light-text) {
+  @if ($light-text == true) {
+    @return $light-primary-text;
+  }
   @if (lightness($bg-color) >= 51) {
     @return $dark-primary-text; // Light bg; return default text
   } @else {
@@ -24,7 +27,7 @@
   @return $floored;
 }
 
-// Given a Base Accent Color, saturate amount, and ligthen amount, will return an accented base color. (Confusing, I know.)
+// Given a Base Accent Color, saturate amount, and lighten amount, will return an accented base color. (Confusing, I know.)
 @function get-accented-base-color($base-a-color, $saturate-amount, $lighten-amount) {
   $saturated: saturate($base-a-color, $saturate-amount);
   $lightened: lighten($saturated, $lighten-amount);
@@ -59,7 +62,7 @@
 }
 
 // Given a base hex value, will return a map formatted to match @angular/material's mat-color signature with contrast values.
-@function get-mat-palette($base-color) {
+@function get-mat-palette($base-color, $light-text: false) {
   $calc-map: get-mat-color-variations($base-color);
 
   $tal-mat-color: (
@@ -78,20 +81,20 @@
     A400: map-get($calc-map, A400),
     A700: map-get($calc-map, A700),
     contrast: (
-      50: get-mat-text-color(map-get($calc-map, 50)),
-      100: get-mat-text-color(map-get($calc-map, 100)),
-      200: get-mat-text-color(map-get($calc-map, 200)),
-      300: get-mat-text-color(map-get($calc-map, 300)),
-      400: get-mat-text-color(map-get($calc-map, 400)),
-      500: get-mat-text-color(map-get($calc-map, 500)),
-      600: get-mat-text-color(map-get($calc-map, 600)),
-      700: get-mat-text-color(map-get($calc-map, 700)),
-      800: get-mat-text-color(map-get($calc-map, 800)),
-      900: get-mat-text-color(map-get($calc-map, 900)),
-      A100: get-mat-text-color(map-get($calc-map, A100)),
-      A200: get-mat-text-color(map-get($calc-map, A200)),
-      A400: get-mat-text-color(map-get($calc-map, A400)),
-      A700: get-mat-text-color(map-get($calc-map, A700)),
+      50: get-mat-text-color(map-get($calc-map, 50), $light-text),
+      100: get-mat-text-color(map-get($calc-map, 100), $light-text),
+      200: get-mat-text-color(map-get($calc-map, 200), $light-text),
+      300: get-mat-text-color(map-get($calc-map, 300), $light-text),
+      400: get-mat-text-color(map-get($calc-map, 400), $light-text),
+      500: get-mat-text-color(map-get($calc-map, 500), $light-text),
+      600: get-mat-text-color(map-get($calc-map, 600), $light-text),
+      700: get-mat-text-color(map-get($calc-map, 700), $light-text),
+      800: get-mat-text-color(map-get($calc-map, 800), $light-text),
+      900: get-mat-text-color(map-get($calc-map, 900), $light-text),
+      A100: get-mat-text-color(map-get($calc-map, A100), $light-text),
+      A200: get-mat-text-color(map-get($calc-map, A200), $light-text),
+      A400: get-mat-text-color(map-get($calc-map, A400), $light-text),
+      A700: get-mat-text-color(map-get($calc-map, A700), $light-text),
     )
   );
   @return $tal-mat-color;
