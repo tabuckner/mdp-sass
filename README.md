@@ -2,6 +2,8 @@
 
 A super simple, quick and dirty approximation of a material palette that matches the [@angular/material](https://github.com/angular/material2) signature of a Material Design palette. Designed to work well with [@angular/material](https://github.com/angular/material2).
 
+[StackBlitz Demo](https://stackblitz.com/edit/mdp-sass-demo)
+
 ## Usage
 
 To use, simple install, include where necessary, and call the function:
@@ -9,7 +11,7 @@ To use, simple install, include where necessary, and call the function:
 ```scss
 @import '~@angular/material/theming';
 @include mat-core();
-@import 'node_modules/mdp-sass';
+@import '~mdp-sass/mdp-sass';
 
 $my-base-color: #0e5ab2;
 $my-accent-color: #b389d7;
@@ -20,6 +22,8 @@ $my-mat-accent-palette: mat-palette(get-mat-palette($my-accent-color));
 $my-mat-warn-palette: mat-palette(get-mat-palette($my-warn-color));
 
 $my-app-theme: mat-light-theme($my-mat-primary-palette, $my-mat-accent-palette, $my-mat-warn-palette);
+
+@include angular-material-theme($my-app-theme);
 ```
 
 ### `get-mat-palette()`
