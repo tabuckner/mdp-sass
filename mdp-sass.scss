@@ -1,12 +1,12 @@
 // Helper function to return @angular/material's color variables.
 @function get-mat-text-color($bg-color, $light-text) {
   @if ($light-text == true) {
-    @return $light-primary-text;
+    @return rgba(white, 0.87);
   }
   @if (lightness($bg-color) >= 51) {
-    @return $dark-primary-text; // Light bg; return default text
+    @return rgba(black, 0.87); // Light bg; return default text
   } @else {
-    @return $light-primary-text; // If bg is to dark, just return white
+    @return rgba(white, 0.87); // If bg is to dark, just return white
   }
 }
 

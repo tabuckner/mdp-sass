@@ -1,6 +1,6 @@
 {
   "name": "mdp-sass",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "A quick and dirty sass function to emulate a Material Design palette in a programatic fashion.",
   "main": "none",
   "repository": "git@github.com:tabuckner/mdp-sass.git",
