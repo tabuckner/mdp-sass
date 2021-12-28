@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 // Helper function to return @angular/material's color variables.
 @function get-mat-text-color($bg-color, $light-text) {
   @if ($light-text == true) {
@@ -23,7 +25,7 @@
 // Helper function to multiply two values and return the floored product.
 @function multiply-rgb-value($rgb-val-1, $rgb-val-2) {
   $multiplied: $rgb-val-1 * $rgb-val-2;
-  $floored: floor($multiplied / 255);
+  $floored: floor(math.div($multiplied, 255));
   @return $floored;
 }
 
